@@ -61,7 +61,7 @@ def _joint_probabilities(distances, desired_perplexity, verbose):
     # the desired perplexity
     distances = distances.astype(np.float32, copy=False)
     conditional_P = _utils._binary_search_perplexity(
-        distances, None, desired_perplexity, verbose)
+        distances, desired_perplexity, verbose)
     P = conditional_P + conditional_P.T
     sum_P = np.maximum(np.sum(P), MACHINE_EPSILON)
     P = np.maximum(squareform(P) / sum_P, MACHINE_EPSILON)
@@ -102,7 +102,7 @@ def _joint_probabilities_nn(distances, neighbors, desired_perplexity, verbose):
     distances = distances.astype(np.float32, copy=False)
     neighbors = neighbors.astype(np.int64, copy=False)
     conditional_P = _utils._binary_search_perplexity(
-        distances, neighbors, desired_perplexity, verbose)
+        distances, desired_perplexity, verbose)
     assert np.all(np.isfinite(conditional_P)), \
         "All probabilities should be finite"
 
